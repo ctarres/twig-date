@@ -1,0 +1,12 @@
+{# Change the date format using datetime formatter #}
+{{ content.date.0['#attributes']['datetime']|date('F d, Y') }}
+
+{# Change the date format using datetime formatter in complex formats with context #}
+{{ content.date.0['#attributes']['datetime']|date('F')|t({}, {'context' : 'Long month name'})| capitalize ~ ' ' ~ content.date.0['#attributes']['datetime']|date('Y') }}
+
+{# Conditionals and change date format with range dates #}
+{% if content.date.0['start_date'] is defined and content.date.0['end_date'] is defined %}
+  {{ content.date.0['start_date']["#attributes"]["datetime"]|date(format='j/n/Y') ~ ' - ' ~ content.date.0['end_date']["#attributes"]["datetime"]|date(format='j/n/Y') }}
+{% else %}
+  {{ content.date.0["#attributes"]["datetime"]|date(format='j/n/Y') }}
+{% endif %}
